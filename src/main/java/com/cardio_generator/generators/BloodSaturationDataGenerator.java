@@ -4,10 +4,19 @@ import java.util.Random;
 
 import com.cardio_generator.outputs.OutputStrategy;
 
+/**
+ * The BloodSaturationDataGenerator class implements the PatientDataGenerator interface  like said in the interface
+ * to generate simulated blood saturation data for health monitoring simulations.
+ */
 public class BloodSaturationDataGenerator implements PatientDataGenerator {
     private static final Random random = new Random();
     private int[] lastSaturationValues;
 
+    /**
+     * Constructs a new BloodSaturationDataGenerator with the specified number of patients.
+     *
+     * @param patientCount The number of patients for which to generate blood saturation data.
+     */
     public BloodSaturationDataGenerator(int patientCount) {
         lastSaturationValues = new int[patientCount + 1];
 
@@ -17,6 +26,12 @@ public class BloodSaturationDataGenerator implements PatientDataGenerator {
         }
     }
 
+    /**
+     * Generates blood saturation data for the specified patient ID and outputs it using the given output strategy.
+     *
+     * @param patientId The ID of the patient for which to generate data.
+     * @param outputStrategy The output strategy to use for displaying or storing the generated data.
+     */
     @Override
     public void generate(int patientId, OutputStrategy outputStrategy) {
         try {
