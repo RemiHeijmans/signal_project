@@ -1,21 +1,16 @@
-package com.cardio_generator;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import com.cardio_generator.generators.AlertGenerator;
-
 import com.cardio_generator.generators.BloodPressureDataGenerator;
 import com.cardio_generator.generators.BloodSaturationDataGenerator;
 import com.cardio_generator.generators.BloodLevelsDataGenerator;
 import com.cardio_generator.generators.ECGDataGenerator;
 import com.cardio_generator.outputs.ConsoleOutputStrategy;
-import com.cardio_generator.outputs.fileOutputStrategy;
+import com.cardio_generator.outputs.FileOutputStrategy;
 import com.cardio_generator.outputs.OutputStrategy;
-import com.cardio_generator.outputs.TcpOutputStrategy;
+import com.cardio_generator.outputs.TCPOutputStrategy;
 import com.cardio_generator.outputs.WebSocketOutputStrategy;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -25,6 +20,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * The HealthDataSimulator class simulates health data for a given amount of patients
+ * and outputs the data by various output strategies.
+ */
 public class HealthDataSimulator {
 
     private static int patientCount = 50; // Default number of patients
@@ -32,8 +31,15 @@ public class HealthDataSimulator {
     private static OutputStrategy outputStrategy = new ConsoleOutputStrategy(); // Default output strategy
     private static final Random random = new Random();
 
+    /**
+     * The main-method of the HealthDataSimulator program.
+     * It initializes the simulation, parses command-line arguments,
+     * Schedules data generation tasks for all patients .
+     *
+     * @param args Command-line arguments passed to the program.
+     * @throws IOException If an I/O error occurs while parsing arguments.
+     */
     public static void main(String[] args) throws IOException {
-
         parseArguments(args);
 
         scheduler = Executors.newScheduledThreadPool(patientCount * 4);
@@ -44,6 +50,14 @@ public class HealthDataSimulator {
         scheduleTasksForPatients(patientIds);
     }
 
+    /**
+     * Parses Command-Line arguments to configure the simulation parameters.
+     * Supported options include: setting the number of patients and output strategy.
+     *
+     * @param args The Command-Line arguments passed to the program.
+     * @throws IOException If an I/O error occurs while parsing arguments.
+     *  To deal with potential problems.
+     */
     private static void parseArguments(String[] args) throws IOException {
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -72,7 +86,7 @@ public class HealthDataSimulator {
                             if (!Files.exists(outputPath)) {
                                 Files.createDirectories(outputPath);
                             }
-                            outputStrategy = new fileOutputStrategy(baseDirectory);
+                            outputStrategy = new FileOutputStrategy(baseDirectory);
                         } else if (outputArg.startsWith("websocket:")) {
                             try {
                                 int port = Integer.parseInt(outputArg.substring(10));
@@ -87,7 +101,7 @@ public class HealthDataSimulator {
                             try {
                                 int port = Integer.parseInt(outputArg.substring(4));
                                 // Initialize your TCP socket output strategy here
-                                outputStrategy = new TcpOutputStrategy(port);
+                                outputStrategy = new TCPOutputStrategy(port);
                                 System.out.println("TCP socket output will be on port: " + port);
                             } catch (NumberFormatException e) {
                                 System.err.println("Invalid port for TCP output. Please specify a valid port number.");
@@ -105,6 +119,9 @@ public class HealthDataSimulator {
         }
     }
 
+    /**
+     * Prints out a help message explaining how to use the HealthDataSimulator program,.
+     */
     private static void printHelp() {
         System.out.println("Usage: java HealthDataSimulator [options]");
         System.out.println("Options:");
@@ -122,6 +139,13 @@ public class HealthDataSimulator {
                 "  This command simulates data for 100 patients and sends the output to WebSocket clients connected to port 8080.");
     }
 
+    /**
+     * Initializes a list of patient IDs based on the specified number of patients.
+     * The patient IDs range from 1->"the total number of patients".
+     *
+     * @param patientCount The number of patients for which to generate data.
+     * @return A list of patient IDs.
+     */
     private static List<Integer> initializePatientIds(int patientCount) {
         List<Integer> patientIds = new ArrayList<>();
         for (int i = 1; i <= patientCount; i++) {
@@ -130,6 +154,13 @@ public class HealthDataSimulator {
         return patientIds;
     }
 
+    /**
+     * Schedules data generation tasks for each patient.
+     * The tasks generating: ECG, blood saturation, blood pressure,
+     * blood levels, and alert data at specified intervals.
+     *
+     * @param patientIds the list of patient IDs  to generate data for.
+     */
     private static void scheduleTasksForPatients(List<Integer> patientIds) {
         ECGDataGenerator ecgDataGenerator = new ECGDataGenerator(patientCount);
         BloodSaturationDataGenerator bloodSaturationDataGenerator = new BloodSaturationDataGenerator(patientCount);
@@ -146,6 +177,14 @@ public class HealthDataSimulator {
         }
     }
 
+    /**
+     * Schedules a task to be executed at certan interval's by the scheduler.
+     * The task represents the generation of patient data by a specific data generator.
+     *
+     * @param task to be scheduled for execution.
+     * @param period The time interval for  the task that should be executed.
+     * @param timeUnit The time unit for the interval (probably:miliseconds, seconds or minutes).
+     */
     private static void scheduleTask(Runnable task, long period, TimeUnit timeUnit) {
         scheduler.scheduleAtFixedRate(task, random.nextInt(5), period, timeUnit);
     }
