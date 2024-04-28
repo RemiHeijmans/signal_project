@@ -1,0 +1,9 @@
+Statdiagram turorial 2 SE  Remi Heijmans
+i decided to split this diagram in 11 states. with one start and 1 stop. 2 states have a acctual possibilty in them where there is a chanse where we are done insatnly or when we have to do alot more states to solve the problem.
+it starts with the data of the vitals of every patient at the moment. then the data gets Stored depicted by the savethedata state.
+ then it goes to the step whre it test if the vitals are normal or not.
+ if they are normal were done and we stop and look for new data.
+ else we go to the genarde this ist the state where it shows a problem.
+ then a Allert msg is created. this message is send to screen viewable by doctors. the doctors are able to see the allert now.
+ then where in the activity state here the doctors read what is going on. then they notice what is worng and asses what to do to solve the problem.
+ if the allert can be solved automatilcy were done. else we go in the state where we manually sovle the problem. when done we check if it is really solved in the validating state. and then were done.

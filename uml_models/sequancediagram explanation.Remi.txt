@@ -1,0 +1,6 @@
+sequence diagram Remi Heijmans
+i spilt this diagram into 4 sequnces
+first is the AlertGenertor this as explaned befor checks if if the vitals of all of the patiens are within their treshold. if not it will fetch the older data of that patient to look for certan trend. to make sure it isn't a false positive.
+the DataStorage will say it is wrong and do nothing or it will send the alert forward to the AlertMessage class. this class gets created at the moment the DatasTrogae sends the alert. it will add a messge to the alert and show it to the doctors.
+now the sovlingTheAlert is created here the doctors will solve the problem. and heal the patiens. when done the object will be gone. and tit sends all new data to the storage to be stored for the future. it will also make the alertMessage go away.this will also cause the alertmessage to dissabpear.
+and now the datastorage will update the alertGeneartor to not look at the patient where the docoters are / have worked on. because it is normal that their vitals are outside the treshold. the data storage object will never disapear neather does the alertGenerotr because they are essential for this proccess to keep on stand by.

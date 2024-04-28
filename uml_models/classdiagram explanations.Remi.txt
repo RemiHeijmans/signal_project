@@ -1,0 +1,28 @@
+tutorial 2 software enginering  Remi Heijmans 
+class diagram 1 AlertManager
+
+it starts with the Alert Generator class. it checks if the data now is outside of the threshold.
+if it isn’t nothing happens. if it is then an object called Alert is created. so that is why it is a doted arrow with an empty triangle end. this shows implementation.  One alert can only have 1 alert generator but the alert generator can make 0 to infinite alerts.
+This Alert class looks at the historical data and compare to make sure this is a alert and to save this alert for the future. I added this step to better predict future and to be able to ignore false alerts. This class has a patient to look at the history.
+Then we go back to the Alert class.  And a bunch of premade messages. The Alert Message will choose the right message for this case.
+the multiplicity can vary al lot. depending on how the data looks like. after the check the alert object makes a alert message. this alert msg will be send to the AlertManager class. I choose so the data can be *  and the original alert can be only 1
+this class makes again a object out if it so again implementation arrow. and then this class will make sure the doctors see the alert.
+
+class diagram 2 DataStorage
+I made this diagram with 4 classes. the first is the PatientData. this is the data specific for 1 patient. so it has patientId and all the vitalSigns in reality they should all be separate. it also has all the historical data for that patient. and metrics.
+the patientdata is a smaller part of the DataStorage class. this is just a normal line between them with multiplicity so that the storage has multiple patientData and there is only one DataStorage.
+the DataStorage this has an overview of all the possible data. the reason this is not the same as patientdata is of privacy reasons. the Data Storage can delete to patient data and add to them. and get the patient data. and encrypt them.
+the DataReetiver is able to get the encrypted data form the storage and decrypt it. this class does also a check if the user is allowed to view the info. that is why it uses the user class. one user can retrieve an abriary amount and amount of times the data. but the data can only be shown to one user.
+the data retriever has a depandacy relation with the storage. because you can only retrieve it there is already data. and the multiplicity is 1  1 for the privacy.
+
+class diagram 3 indentifier
+this diagram has 5 classes. first the patientIdentifier class. this has patient records private to ensure privacy. it is able to check if it has data for a specific Id. and is able to give it. the IdentityManager oversees the patient id process and handles possible mistakes in the data or even in the authentication. This is crucial when working with different hospitals or even when comparing with a long time ago.
+it has an association reaction with the Patientidentifier class. 
+the PatientRecord is a class that represents a possible real live patients record. this data will be stored and be able to be retrieved for the DataStorage class this is the same class as the diagram above but with an addition. now it is able to update the saved data. and load the personal info of a patient from this place and data from other places.
+the multiplicity can be anything so that is why it is 0.*  and then lastly the AlertGenerator class. tis is also the same as before but with the addition that it is able to get the patients details. this makes it easier for the docters to get info about patients. this is also a great addition in case the patient has data somewhere else.
+
+class diagram 4 Access layer
+this diagram again uses 5 classes. a DataLisner. this makes it able to get the data stream. I temporally added dataSource so show that the data will come form here. this class is linked with a class fileDataLisner with multiplicity 0..* in both directions. this fileDataListner this also lines to the data stream that comes for the Datalisner class and removes unwanted data. this is to ensure no leaks of privacy.
+then the data goes to DataParser. this is linked in the exact same way the datalsner and filedatasisner are linked. because the DataParser works in the same way. but now it structures the data by first lising to is and then parsing it and afther that structuring it. to get it into a more readable format.
+then it it goes to the DataSourceAdapter. this class makes the data be in the way we want it to be. this could be a lot of different things and is best if the doctors choose them it selve..
+after all this the data can finally go to the DataStorage. using the StoreData method to ensure easy storage. The connection is again. The same. The reason it is all the same is because it really depence on the data. So I decided to make it a wide possible range.
