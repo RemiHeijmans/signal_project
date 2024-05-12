@@ -51,7 +51,55 @@ public class Patient {
      * @return a list of PatientRecord objects that fall within the specified time
      *         range
      */
-    public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
+    public List<PatientRecord> getRecords(long startTime, long endTime) {// this gets the records from a start time till a endt
+        List<PatientRecord> recordsInRange = new ArrayList<>();
+        for (PatientRecord record : patientRecords) {
+            long recordTimestamp = record.getTimestamp();
+            if (recordTimestamp >= startTime && recordTimestamp <= endTime) {
+                recordsInRange.add(record);
+            }
+        }
+        return recordsInRange;
+    }
+                    
+
+    public int getCholesterol() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCholesterol'");
+    }
+
+    public int getSystolicBloodPressure() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSystolicBloodPressure'");
+    }
+
+    public double getWhiteBloodCellCount() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getWhiteBloodCellCount'");
+    }
+
+    public int getDiastolicBloodPressure() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDiastolicBloodPressure'");
+    }
+
+    public int getId() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getId'");
+    }
+
+    public int getBloodOxygenSaturation() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getBloodOxygenSaturation'");
+    }
+
+    public int getHeartRate() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getHeartRate'");
+    }
+
+    public boolean isTriggeredAlert() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isTriggeredAlert'");
     }
 }

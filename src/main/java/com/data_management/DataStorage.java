@@ -108,4 +108,14 @@ public class DataStorage {
             alertGenerator.evaluateData(patient);
         }
     }
+
+    public Object getPatientData() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPatientData'");
+    }
+
+    public boolean isAlertTriggered(String string) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isAlertTriggered'");
+    }
 }

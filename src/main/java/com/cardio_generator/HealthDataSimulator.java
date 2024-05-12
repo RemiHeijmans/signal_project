@@ -1,3 +1,5 @@
+package com.cardio_generator;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +11,8 @@ import com.cardio_generator.generators.ECGDataGenerator;
 import com.cardio_generator.outputs.ConsoleOutputStrategy;
 import com.cardio_generator.outputs.FileOutputStrategy;
 import com.cardio_generator.outputs.OutputStrategy;
-import com.cardio_generator.outputs.TCPOutputStrategy;
+//import com.cardio_generator.outputs.TCPOutputStrategy;
+import com.cardio_generator.outputs.TcpOutputStrategy;
 import com.cardio_generator.outputs.WebSocketOutputStrategy;
 import java.util.Collections;
 import java.util.List;
@@ -101,7 +104,7 @@ public class HealthDataSimulator {
                             try {
                                 int port = Integer.parseInt(outputArg.substring(4));
                                 // Initialize your TCP socket output strategy here
-                                outputStrategy = new TCPOutputStrategy(port);
+                                outputStrategy = new TcpOutputStrategy(port);
                                 System.out.println("TCP socket output will be on port: " + port);
                             } catch (NumberFormatException e) {
                                 System.err.println("Invalid port for TCP output. Please specify a valid port number.");
