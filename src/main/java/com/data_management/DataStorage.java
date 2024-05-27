@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import com.alerts.AlertGenerator;
 
 /**
@@ -13,14 +15,21 @@ import com.alerts.AlertGenerator;
  * patient IDs.
  */
 public class DataStorage {
-    private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
+    private final Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
+    private final ReentrantReadWriteLock rwLock;
+    private final Lock readLock;
+    private final Lock writeLock;
 
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
+     * @param reader 
      */
-    public DataStorage() {
+    public DataStorage(Object reader) {
         this.patientMap = new HashMap<>();
+        this.rwLock = new ReentrantReadWriteLock();
+        this.readLock = rwLock.readLock();
+        this.writeLock = rwLock.writeLock();
     }
 
     /**
@@ -37,12 +46,17 @@ public class DataStorage {
      *                         milliseconds since the Unix epoch
      */
     public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
-        Patient patient = patientMap.get(patientId);
-        if (patient == null) {
-            patient = new Patient(patientId);
-            patientMap.put(patientId, patient);
+        writeLock.lock();
+        try {
+            Patient patient = patientMap.get(patientId);
+            if (patient == null) {
+                patient = new Patient(patientId);
+                patientMap.put(patientId, patient);
+            }
+            patient.addRecord(measurementValue, recordType, timestamp);
+        } finally {
+            writeLock.unlock();
         }
-        patient.addRecord(measurementValue, recordType, timestamp);
     }
 
     /**
@@ -59,11 +73,16 @@ public class DataStorage {
      *         range
      */
     public List<PatientRecord> getRecords(int patientId, long startTime, long endTime) {
-        Patient patient = patientMap.get(patientId);
-        if (patient != null) {
-            return patient.getRecords(startTime, endTime);
+        readLock.lock();
+        try {
+            Patient patient = patientMap.get(patientId);
+            if (patient != null) {
+                return patient.getRecords(startTime, endTime);
+            }
+            return new ArrayList<>(); // return an empty list if no patient is found
+        } finally {
+            readLock.unlock();
         }
-        return new ArrayList<>(); // return an empty list if no patient is found
     }
 
     /**
@@ -72,7 +91,12 @@ public class DataStorage {
      * @return a list of all patients
      */
     public List<Patient> getAllPatients() {
-        return new ArrayList<>(patientMap.values());
+        readLock.lock();
+        try {
+            return new ArrayList<>(patientMap.values());
+        } finally {
+            readLock.unlock();
+        }
     }
 
     /**

@@ -1,13 +1,14 @@
 package data_management;
 
 import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
 import com.data_management.Patient;
 
 import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 public class Test {
 
     // Test case for evaluating data with cholesterol below normal

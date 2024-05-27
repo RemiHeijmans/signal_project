@@ -12,6 +12,7 @@ class DataStorageTest {
 
     @Test
     void testAddAndGetRecords() {
+        Object reader;
         // TODO Perhaps you can implement a mock data reader to mock the test data?
         // DataReader reader
         DataStorage storage = new DataStorage(reader);

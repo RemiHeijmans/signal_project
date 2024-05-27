@@ -1,0 +1,5 @@
+I am not able to get the junit test working. i have tried a lot of thinks. that is why there is only 1 screenshot. 
+Luckely i do have a lot of test that would cover a lot of cases.
+
+Update2:i have only now recieved feedback on why the unit tests don't work. i think i fixed it. but there seems to be an other problem. 
+a problem with my code. so the tests still don't run like it is supposed to. sadly i do not have time to fix it anymore. Due to a lack of time.
