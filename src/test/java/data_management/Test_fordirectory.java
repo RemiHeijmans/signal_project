@@ -1,10 +1,14 @@
-package com.data_management;
+package data_management;
 
 import org.junit.Test;
+
+import com.data_management.DataStorage;
+import com.data_management.FileDataReader;
+
 import static org.junit.Assert.*;
 import java.io.IOException;
 
-public class Test {
+public class Test_fordirectory {
     
     @Test
     public void testDataReading() {
