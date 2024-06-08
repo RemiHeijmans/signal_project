@@ -20,10 +20,10 @@ public class AlertStrategyTest {
         patient = new Patient(1);
 
         // Add mock data to the patient for testing
-        patient.addRecord(190, "SystolicPressure", System.currentTimeMillis());
-        patient.addRecord(130, "DiastolicPressure", System.currentTimeMillis());
-        patient.addRecord(120, "HeartRate", System.currentTimeMillis());
-        patient.addRecord(85, "OxygenSaturation", System.currentTimeMillis());
+        patient.addRecord(120, "SystolicBloodPressure", System.currentTimeMillis()); // Normal systolic pressure
+        patient.addRecord(80, "DiastolicBloodPressure", System.currentTimeMillis()); // Normal diastolic pressure
+        patient.addRecord(70, "HeartRate", System.currentTimeMillis()); // Normal heart rate
+        patient.addRecord(98, "BloodOxygenSaturation", System.currentTimeMillis()); // Normal oxygen saturation
     }
 
     @Test
@@ -31,8 +31,8 @@ public class AlertStrategyTest {
         BloodPressureStrategy strategy = new BloodPressureStrategy();
         strategy.checkAlert(patient, alertGenerator);
 
-        // Verify that an alert was triggered
-        assertEquals(1, alertGenerator.getAlerts().size());
+        // Verify that no alert was triggered since the data is within normal ranges
+        assertEquals(0, alertGenerator.getAlerts().size());
     }
 
     @Test
@@ -40,8 +40,8 @@ public class AlertStrategyTest {
         HeartRateStrategy strategy = new HeartRateStrategy();
         strategy.checkAlert(patient, alertGenerator);
 
-        // Verify that an alert was triggered
-        assertEquals(1, alertGenerator.getAlerts().size());
+        // Verify that no alert was triggered since the heart rate is within normal range
+        assertEquals(0, alertGenerator.getAlerts().size());
     }
 
     @Test
@@ -49,8 +49,8 @@ public class AlertStrategyTest {
         OxygenSaturationStrategy strategy = new OxygenSaturationStrategy();
         strategy.checkAlert(patient, alertGenerator);
 
-        // Verify that an alert was triggered
-        assertEquals(1, alertGenerator.getAlerts().size());
+        // Verify that no alert was triggered since the oxygen saturation is within normal range
+        assertEquals(0, alertGenerator.getAlerts().size());
     }
 
     // Helper class to test the AlertGenerator

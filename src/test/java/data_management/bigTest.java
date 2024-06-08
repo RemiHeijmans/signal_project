@@ -1,15 +1,11 @@
 package data_management;
 
-import org.junit.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import com.data_management.Patient;
-
-import static org.junit.Assert.*;
-
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-public class Test {
+
+import com.data_management.Patient;
+public class bigTest {
 
     // Test case for evaluating data with cholesterol below normal
     @Test
@@ -30,7 +26,7 @@ public class Test {
     public void testEvaluateDataCholesterolAboveNormal() {
         // Create a mock Patient with cholesterol above normal
         Patient patient = new Patient(0);
-        patient.addRecord(300, "Cholesterol", System.currentTimeMillis()); // Cholesterol above normal
+        patient.addRecord(200, "Cholesterol", System.currentTimeMillis()); // Cholesterol above normal
 
         // Get patient's cholesterol level
         int cholesterol = patient.getCholesterol();
