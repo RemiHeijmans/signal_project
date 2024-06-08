@@ -49,4 +49,16 @@ public class FileDataReader implements DataReader {
             }
         }
     }
+
+    @Override
+    public void startRealTimeData(DataStorage dataStorage, String uri) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'startRealTimeData'");
+    }
+
+    @Override
+    public void stopRealTimeData() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'stopRealTimeData'");
+    }
 }
