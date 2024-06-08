@@ -1,16 +1,14 @@
 package data_management;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.*;
 
 import java.io.IOException;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import com.data_management.DataReader;
 import com.data_management.DataStorage;
@@ -22,8 +20,8 @@ public class DataReaderTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        dataStorage = new DataStorage();
-        dataReader = new WebSocketDataReader(null, dataStorage); // Null URI, as we won't actually connect in tests
+        dataStorage = DataStorage.getInstance();
+        dataReader = new WebSocketDataReader(new URI("ws://localhost:8080"), dataStorage); // Use a mock or local server URI
     }
 
     @AfterEach
@@ -34,12 +32,14 @@ public class DataReaderTest {
 
     @Test
     public void testReadData() {
-        try {
-            dataReader.readData(dataStorage);
-            // Verify that data is read and stored correctly (integration with DataStorage is indirectly tested)
-            assertNotNull(dataStorage.getAllPatients());
-        } catch (IOException e) {
-            fail("IOException should not be thrown during testing");
-        }
+        // The method readData is not implemented for WebSocketDataReade, hence, i won't call it.
+        // Instead, we focus on simulating realtime data reception.
+        // This is where you can manually invoke onMessage to simulate receiving a message.
+        ((WebSocketDataReader) dataReader).onMessage("1,1700000000000,SystolicPressure,190");
+        ((WebSocketDataReader) dataReader).onMessage("1,1700000000000,DiastolicPressure,120");
+
+        // Verify that data is read and stored correctly (integration with DataStorage is indirectly tested)
+        assertNotNull(dataStorage.getAllPatients());
+        assertFalse(dataStorage.getAllPatients().isEmpty());
     }
 }

@@ -1,5 +1,11 @@
-package com.alerts;
+package data_management;
 import org.junit.jupiter.api.Test;
+
+import com.alerts.Alert;
+import com.alerts.AlertFactory;
+import com.alerts.BloodOxygenAlertFactory;
+import com.alerts.BloodPressureAlertFactory;
+import com.alerts.ECGAlertFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 

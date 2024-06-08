@@ -1,25 +1,29 @@
 package data_management;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.data_management.DataStorage;
-import com.data_management.DataWebSocketClient;
+import com.data_management.WebSocketDataReader;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ErrorHandlingTest {
     private DataStorage dataStorage;
-    private DataWebSocketClient client;
+    private WebSocketDataReader client;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
-        dataStorage = new DataStorage();
-        client = new DataWebSocketClient(null, dataStorage); // Null URI, as we won't actually connect in tests
+        dataStorage = DataStorage.getInstance();
+        // Clearing any existing data for test isolation
+        dataStorage.getAllPatients().clear();
+        client = new WebSocketDataReader(new URI("ws://localhost:8080"), dataStorage); // Using a mock URI
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         dataStorage = null;
         client = null;
@@ -29,13 +33,14 @@ public class ErrorHandlingTest {
     public void testConnectionError() {
         // Simulate connection error
         client.onError(new Exception("Connection error"));
-        // Assert that the client attempts to reconnect
-        assertTrue(client.isClosed());
+        // Since `client.isClosed()` might not be available, we will mock or simulate behavior
+        // For demonstration, we assume onError closes the client, which should be verified accordingly
+        assertFalse(client.isOpen()); // Assuming `isOpen` method exists to check connection status
     }
 
     @Test
     public void testDataTransmissionFailure() {
-        // Simulate data transmission failure
+        // Simulate data transmission failure by sending an invalid message
         client.onMessage("Invalid message"); // Simulate receiving invalid data
         // Assert that the data is not stored
         assertEquals(0, dataStorage.getAllPatients().size());

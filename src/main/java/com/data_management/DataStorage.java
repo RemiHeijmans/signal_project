@@ -15,7 +15,7 @@ public class DataStorage {
     private final Lock readLock;
     private final Lock writeLock;
 
-    DataStorage() { // Private constructor
+    public DataStorage() { // Private constructor
         this.patientMap = new HashMap<>();
         this.rwLock = new ReentrantReadWriteLock();
         this.readLock = rwLock.readLock();
