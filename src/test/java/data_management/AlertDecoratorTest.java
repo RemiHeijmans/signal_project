@@ -23,21 +23,20 @@ class MockAlert implements AlertInterface {
 
     @Override
     public int getPatientId() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPatientId'");
     }
 
     @Override
     public String getCondition() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getCondition'");
     }
 
     @Override
     public long getTimestamp() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getTimestamp'");
     }
+
+ 
 }
 
 public class AlertDecoratorTest {

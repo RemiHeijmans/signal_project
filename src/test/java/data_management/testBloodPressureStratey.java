@@ -11,14 +11,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class testBloodPressureStratey {
-
+// this is a other attempt to test the stratey thing.
+// but this also does't work sadly
     @Test
     public void testBloodPressureStrategy() {
         // Create a mock DataStorage
         DataStorage dataStorage = new DataStorage();
 
         // Create an instance of AlertGenerator
-        AlertGenerator alertGenerator = new AlertGenerator();
+        AlertGenerator alertGenerator = new AlertGenerator(dataStorage);
 
         // Create a mock Patient with varying blood pressure readings
         Patient patient = new Patient(1);

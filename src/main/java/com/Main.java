@@ -13,7 +13,6 @@ public class Main {
             try {
                 HealthDataSimulator.main(new String[]{});
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         } else {

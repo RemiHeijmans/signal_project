@@ -33,8 +33,4 @@ public class Alert implements AlertInterface {
         // Trigger logic
     }
 
-    @Override
-    public String getType() {
-        return type;
-    }
 }
