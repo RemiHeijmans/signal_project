@@ -1,7 +1,5 @@
-The test do not acctualy run again.
-Because of the same issue as before.but either way, I added all the facinating design patterns.
+most of the test run. i can't figure out why some don't. Troughout this project i strugled a lot with the test. they always gave weird different problems.
+but now it is better.
+ I added all the facinating design patterns.
 I learned a lot because of this week's task.Sadly, I am not 100% because of the tests.
-I kept the tests in the Alerts folder for simplicity because they won't run either way
-I tried to fix it again, but there is something else wrong now. And sadly, I don't have enough time to fix it.
-
 I seriously hope that my weird test situation doesn't ruin my grade too much because I really did my best in this project. :)

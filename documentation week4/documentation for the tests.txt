@@ -1,5 +1,0 @@
-i made the changes like required. but i am not able to run the tests. there is somthing weird going on with maven. I have tried a lot of things but with no succes.
-this also caused that i am not able to make a code coverage report eventho i tried to.
- inlcuded a test for every vital where the value is lowwer then it is supposed to be and higher then normal.
-and a test if the storage system works.
-i still included the tests screenshots eventho they failed.
