@@ -83,4 +83,24 @@ public class Patient {
         }
         return 0; // Default value if no white blood cell count record is found
     }
+
+    public void setSystolicBloodPressure(int i) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setSystolicBloodPressure'");
+    }
+
+    public void setHeartRate(int i) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setHeartRate'");
+    }
+
+    public void setBloodOxygenSaturation(int i) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setBloodOxygenSaturation'");
+    }
+
+    public void setDiastolicBloodPressure(int i) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setDiastolicBloodPressure'");
+    }
 }

@@ -5,4 +5,5 @@ public interface AlertInterface {
     String getCondition();
     long getTimestamp();
     void trigger();
+    String getType();
 }

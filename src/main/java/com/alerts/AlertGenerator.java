@@ -5,6 +5,8 @@ import com.data_management.Patient;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 public class AlertGenerator {
     private DataStorage dataStorage;
@@ -17,6 +19,7 @@ public class AlertGenerator {
     private AlertStrategy bloodPressureStrategy;
     private AlertStrategy heartRateStrategy;
     private AlertStrategy oxygenSaturationStrategy;
+    private List<AlertInterface> alerts;
 
     public AlertGenerator(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
@@ -29,6 +32,7 @@ public class AlertGenerator {
         this.bloodPressureStrategy = new BloodPressureStrategy();
         this.heartRateStrategy = new HeartRateStrategy();
         this.oxygenSaturationStrategy = new OxygenSaturationStrategy();
+        this.alerts = new ArrayList<>();
     }
 
     public void evaluateData(Patient patient) {
@@ -42,6 +46,7 @@ public class AlertGenerator {
         AlertInterface priorityAlert = new PriorityAlertDecorator(alert, "HIGH");
         AlertInterface repeatedAlert = new RepeatedAlertDecorator(priorityAlert, 1000, 3);
         repeatedAlert.trigger();
+        alerts.add(repeatedAlert);
     }
 
     public boolean isTrendAlert(int lastReading, int currentReading) {
@@ -85,5 +90,13 @@ public class AlertGenerator {
 
     public Map<Integer, Long> getLastSaturationTimestamps() {
         return lastSaturationTimestamps;
+    }
+
+    public List<AlertInterface> getAlerts() {
+        return alerts;
+    }
+
+    public void reset() {
+        alerts.clear();
     }
 }

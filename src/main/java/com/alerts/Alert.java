@@ -1,15 +1,16 @@
 package com.alerts;
 
-// Represents an alert
 public class Alert implements AlertInterface {
     private int patientId;
     private String condition;
     private long timestamp;
+    private String type;
 
-    public Alert(int patientId, String condition, long timestamp) {
+    public Alert(int patientId, String type, long timestamp) {
         this.patientId = patientId;
-        this.condition = condition;
+        this.type = type;
         this.timestamp = timestamp;
+        this.condition = type;  // Assuming condition and type are the same here
     }
 
     @Override
@@ -29,7 +30,11 @@ public class Alert implements AlertInterface {
 
     @Override
     public void trigger() {
-        // Trigger the alert (logging, notification, etc.)
-        System.out.println("Alert triggered: " + condition + " for patient " + patientId);
+        // Trigger logic
+    }
+
+    @Override
+    public String getType() {
+        return type;
     }
 }
